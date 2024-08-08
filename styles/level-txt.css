@@ -1,0 +1,87 @@
+/* Estilos para la fila 1 */
+.fila1 {
+    /*height: 50px;  Altura deseada */
+    background-color: transparent; /* Color de fondo */
+    margin: 2% 40%;
+}
+.titulo-nivel-txt{
+    border: 1px solid #eee;
+    border-radius: 45px;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-family: 'Digitalt';
+    color: #ffffff;
+}
+/* Estilos para la fila 2 */
+.fila2 {
+    display: grid;
+    grid-template-rows: auto auto;
+    background-color: #ffffff; /* Color de fondo */
+    margin: 5%;
+    margin-top: 1%;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 45px;
+}
+
+/* Estilos para la subfila 2-1 */
+.fila2-1 {
+    padding: 5%;
+    padding-top: 10%;
+    font-size: 24px;
+    font-family: "Comic Sans MS";
+    font-weight: bolder;
+}
+.texto1-txt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilos para la subfila 2-2 */
+.fila2-2 {
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: flex-end; display: flex;
+    align-self: stretch;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    padding-bottom: 3%;
+    padding-right: 3%;
+    
+}
+
+/* Estilos para el botón */
+.btn-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px; /* Espaciado interno */
+    background-color: #ffffff; /* Color de fondo */
+    color: C286FF; /* Color del texto */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    font-family: 'Digitalt';
+    font-size: 26px;
+}
+
+/* Estilos para el icono dentro del botón */
+.btn-icono img {
+    margin-left: 5px; /* Espaciado entre el texto y el icono */
+    width: 30%;
+}
+@font-face {
+    font-family: "Comic Sans MS";
+    src: url("https://db.onlinewebfonts.com/t/7cc6719bd5f0310be3150ba33418e72e.eot");
+    src: url("https://db.onlinewebfonts.com/t/7cc6719bd5f0310be3150ba33418e72e.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/7cc6719bd5f0310be3150ba33418e72e.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/7cc6719bd5f0310be3150ba33418e72e.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/7cc6719bd5f0310be3150ba33418e72e.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/7cc6719bd5f0310be3150ba33418e72e.svg#Comic Sans MS")format("svg");
+}

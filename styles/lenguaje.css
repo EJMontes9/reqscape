@@ -1,0 +1,35 @@
+.fila1-cl1 {
+    padding: 7%;
+    /* Espacio a los lados */
+    border-bottom: 1px solid rgba(19, 67, 145, 0.4);
+    /* Borde en la parte inferior */
+}
+#languageSelector {
+    appearance: none; /* Remueve la apariencia predeterminada del navegador */
+    -webkit-appearance: none; /* Para Safari y Chrome */
+    -moz-appearance: none; /* Para Firefox */
+    width: 100%; /* Ancho del select */
+    padding: 8%; /* Espaciado interior */
+    border: 1px solid #ddd; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+    background-color: #fff; /* Color de fondo */
+    color: #333; /* Color del texto */
+    cursor: pointer; /* Cursor */
+    outline: none; /* Remueve el borde de enfoque */
+    transition: border-color 0.3s ease; /* Transición para el borde */
+    text-align: center; /* Centra el texto dentro del select */
+    font-family: 'Digitalt';
+    font-weight: lighter;
+}
+/* Estilo cuando el select está enfocado */
+#languageSelector:focus {
+    border-color: #007BFF; /* Cambia el color del borde cuando está enfocado */
+}
+
+/* Estilos para las opciones del select */
+#languageSelector option {
+    color: #333; /* Color del texto de las opciones */
+    background-color: #fff; /* Color de fondo de las opciones */
+    text-align: center; /* Centra el texto dentro de las opciones */
+}

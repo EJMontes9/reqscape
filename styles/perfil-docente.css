@@ -1,0 +1,180 @@
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    border: 1px solid rgb(78, 110, 255);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.requirement-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.requirement-table th, .requirement-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    background-color: #c6e5fa;
+}
+.requirement-table th {
+    background-color: #f2f2f2;
+}
+.edit-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: #2196F3;
+    color: dodgerblue
+}
+.edit-button:hover {
+    background: #2196F3;
+    color: white;
+  }
+.delete-button {
+    border-color: #f44336;
+    color: red;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.delete-button:hover {
+    background: #f44336;
+    color: white;
+  }
+
+.table-container {
+    max-height: 300px; /* Puedes ajustar esta altura según sea necesario */
+    overflow-y: scroll;
+    margin-top: 20px;
+}
+.hidden {
+    display: none;
+}
+#insertButton, #updateButton{
+    background-color: #007bff;
+}
+.ver-req{
+    background-color: #007bff;
+}
+/* Estilos para el contenedor de la imagen de perfil */
+.profile-pic-container {
+    width: 120px; /* Tamaño fijo del contenedor */
+    height: 120px; /* Tamaño fijo del contenedor */
+    position: relative;
+}
+
+/* Estilos para hacer el contenedor circular */
+.contenedor-img.circular {
+    width: 50%; /* Hacer el contenedor cuadrado */
+    height: 0;
+    padding-bottom: 100%; /* Mantener la relación de aspecto 1:1 */
+    overflow: hidden;
+    border-radius: 10%; /* Hacer el contenedor circular */
+}
+
+/* Estilos para la imagen de perfil */
+.usuario-logueado {
+    display: flex;
+    justify-content: end;
+    border-radius: 10%; /* Hacer la imagen circular */
+    margin: 2%;
+    margin-bottom:0%;
+    
+}
+.profile-data-item{
+    font-family: 'Digitalt';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:3%;
+    margin-top: 0%;
+    margin-bottom:1%;
+    color: #1E1C69;
+}
+.usuario-logueado img{
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%;
+    margin: 2% 2%;
+    margin-top: 0%;
+    margin-left: 0%;
+}
+.contenido-juego {
+    height: 70%; /* Ajusta el porcentaje según el cálculo */
+    padding: 2%;
+    width: 92%;
+    display: grid;
+    grid-template-rows: auto auto auto 0.5fr;
+    background-color: white;
+}
+
+/* Estilos del formulario */
+#requirementForm {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 1fr; /* Dividir en 4 columnas de igual ancho */
+    gap: 20px; /* Espacio entre columnas */
+    max-width: none;
+}
+
+/* Contenedor del input */
+.input-container {
+    width: 100%;
+}
+
+/* Label */
+.input-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+/* Campo de texto, selección y área de texto */
+.input-field {
+    width: 100%; /* Ancho del 100% del contenedor */
+    padding: 4px 10px;  /* Ajuste de padding para reducir la altura */
+    font-size: 12px;    /* Ajuste de font-size para reducir la altura */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+/* Campo de selección */
+.input-field select {
+    padding: 4px 30px 4px 10px;  /* Espacio adicional a la derecha para la flecha */
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij48cGF0aCBkPSJNMSAxTDcgNyAxMyAxIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==') no-repeat right 10px center;
+    appearance: none;  /* Eliminamos el estilo predeterminado del navegador */
+    cursor: pointer;
+}
+
+/* Efectos interactivos */
+.input-field:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.input-field:invalid {
+    border-color: #dc3545;
+}
+
+.input-field:valid {
+    border-color: #28a745;
+}
+
+/* Estilos para los botones */
+.button-container {
+    display: flex;
+    justify-content:flex-end;
+    height: 30%;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button.hidden {
+    display: none;
+}

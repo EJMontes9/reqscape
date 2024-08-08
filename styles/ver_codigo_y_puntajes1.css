@@ -1,0 +1,161 @@
+
+   /* Estilos para el contenedor de la imagen de perfil */
+   .profile-pic-container {
+    width: 120px; /* Tamaño fijo del contenedor */
+    height: 120px; /* Tamaño fijo del contenedor */
+    position: relative;
+}
+
+/* Estilos para hacer el contenedor circular */
+.contenedor-img.circular {
+    width: 50%; /* Hacer el contenedor cuadrado */
+    height: 0;
+    padding-bottom: 100%; /* Mantener la relación de aspecto 1:1 */
+    overflow: hidden;
+    border-radius: 10%; /* Hacer el contenedor circular */
+}
+
+/* Estilos para la imagen de perfil */
+.usuario-logueado {
+    display: flex;
+    justify-content: end;
+    border-radius: 10%; /* Hacer la imagen circular */
+    margin: 2%;
+    margin-bottom:0%;
+}
+.profile-data-item {
+    font-family: 'Digitalt';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:3%;
+    margin-top: 0%;
+    margin-bottom:1%;
+    color: #1E1C69;
+}
+.usuario-logueado img {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%;
+    margin: 2% 2%;
+    margin-top: 0%;
+    margin-left: 0%;
+}
+.fila1-cl1 {
+        padding: 7%;
+        /* Espacio a los lados */
+        border-bottom: 1px solid rgba(19, 67, 145, 0.4);
+        /* Borde en la parte inferior */
+ 
+    }
+        #languageSelector {
+        appearance: none; /* Remueve la apariencia predeterminada del navegador */
+        -webkit-appearance: none; /* Para Safari y Chrome */
+        -moz-appearance: none; /* Para Firefox */
+        width: 100%; /* Ancho del select */
+        padding: 8%; /* Espaciado interior */
+        border: 1px solid #ddd; /* Borde */
+        border-radius: 5px; /* Bordes redondeados */
+        font-size: 16px; /* Tamaño de la fuente */
+        background-color: #fff; /* Color de fondo */
+        color: #333; /* Color del texto */
+        cursor: pointer; /* Cursor */
+        outline: none; /* Remueve el borde de enfoque */
+        transition: border-color 0.3s ease; /* Transición para el borde */
+        text-align: center; /* Centra el texto dentro del select */
+        font-family: 'Digitalt';
+        font-weight: lighter;
+    }
+
+    /* Estilo cuando el select está enfocado */
+    #languageSelector:focus {
+        border-color: #007BFF; /* Cambia el color del borde cuando está enfocado */
+    }
+
+    /* Estilos para las opciones del select */
+    #languageSelector option {
+        color: #333; /* Color del texto de las opciones */
+        background-color: #fff; /* Color de fondo de las opciones */
+        text-align: center; /* Centra el texto dentro de las opciones */
+    }
+    
+.contenido-juego {
+    height: 90%; /* Ajusta el porcentaje según el cálculo */
+    background-color: #fff;
+}
+.contenedor-ab {
+    height: 100%;
+    background-color: #fff;
+    padding: 1% 2%;
+    border-radius: 10px;
+}
+.text{
+    margin: 0%;
+    font-family: 'Digitalt';
+}
+/*------------------------------*/
+.form1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 100%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+label {
+    font-size: 14px;
+    color: #333;
+    align-self: center;
+}
+
+input[type="text"],
+input[type="number"],
+button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 11%;
+    height: 4%;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .form1 {
+        flex-direction: column;
+    }
+
+    label,
+    input[type="text"],
+    input[type="number"],
+    button {
+        width: 100%;
+    }
+}
+#btn-export{
+    width: 20%;
+}

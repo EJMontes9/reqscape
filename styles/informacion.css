@@ -1,0 +1,71 @@
+.contenido-juego {
+    background-image: linear-gradient(to bottom, #2C9AFF, #53F3FD);
+    margin: 2%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border-radius: 10px;
+    height: 93%;
+}
+.fila2{
+    margin: 1%;
+    padding: 0%;
+    height: 90%;
+}
+.fila2-cl2{
+    height: 100%;
+}
+.fila2-1{
+    padding: 0% 2%;
+    padding-top: 2%;
+}
+.fila1{
+margin-bottom: 0%;
+}
+.fila2-2{
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    padding-bottom: 0%;
+}
+.btn-juego-principal{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.next{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    
+}
+.btn-icono{
+    font-size: 20px;
+}
+.titulos-info{
+    color: #1E1C69;
+    font-family: 'Digitalt';
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 100px;
+    font-size: 40px;
+}
+.tex-info{
+    font-family: 'Digitalt';
+    font-weight: 100px;
+    font-size: 20px;
+}
+.titulos-info th {
+     /* Espacio debajo de los títulos */
+    padding: 2% 5%;
+    padding-bottom: 0%;
+}
+
+.tex-info td {
+    padding: 2% 5%; /* Espacio encima del texto */
+    padding-bottom: 0%;
+}
+.fila2-2 {
+    height: auto; /* Puedes ajustar la altura según sea necesario */
+    max-height: 300px; /* Altura máxima para evitar el desbordamiento */
+    overflow-y: auto; /* Habilita el scroll vertical si el contenido se desborda */
+    padding: 10px; /* Ajusta el padding si es necesario */
+    box-sizing: border-box; /* Asegúrate de que el padding esté incluido en la altura total */
+}

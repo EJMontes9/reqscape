@@ -1,0 +1,92 @@
+.fondo {
+    background-image: linear-gradient(to bottom, #2C9AFF, #53F3FD);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-login {
+    background-color: white;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 80px;
+    padding: 20px;
+    width: 35%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-icon {
+   
+    width: max-content;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+}
+
+.estilo-iconos {
+    width: 24px;
+    height: 24px;
+}
+
+.color-icono {
+    fill: white;
+}
+
+.estilo-input {
+    width: 100%;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.estilo-input:focus {
+    outline: none;
+    border-color: #2C9AFF;
+}
+
+.estilo-button {
+    width: 100%;
+    background-color: #36d013;
+    color: white;
+    border-radius: 20px;
+    border-color: transparent;
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.estilo-button:hover {
+    background-color: #5d6c82;
+}
+
+.estilo-sugerencias {
+    color: #6a6a6a;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.estilo-sugerencias span {
+    color: #31a9ca;
+}
+
+.estilo-password-olvidado {
+    color: #31a9ca;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.estilo-imagen {
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+}

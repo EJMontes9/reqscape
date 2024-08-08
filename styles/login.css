@@ -1,0 +1,77 @@
+.fondo {
+    background-image: linear-gradient(to bottom, #2C9AFF, #53F3FD);
+}
+
+.contenedor-login {
+    background-color: white;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 90px;
+    padding: 20px;
+    width: 35%;
+}
+
+.contenedor-icon {
+    background-color: #2C9AFF;
+    width: max-content;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.estilo-iconos {
+    width: 16px;
+    height: 16px;
+}
+
+.color-icono {
+    fill: white;
+}
+
+.estilo-input {
+    width: 100%;
+    border: 1px solid rgb(190, 190, 190);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.estilo-input:focus {
+    outline: none;
+}
+
+.estilo-button {
+    width: 100%;
+    background-color: #36d013;
+    color: white;
+    border-radius: 20px;
+    border-color: transparent;
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.estilo-button:hover {
+    background-color: #36d013;
+}
+
+.estilo-sugerencias {
+    color: #36d013;
+    font-size: 14px;
+    font-weight: 700;
+    span {
+        color: #31a9ca;
+    }
+}
+
+
+.estilo-password-olvidado {
+    color: #31a9ca;
+    font-size: 14px;
+    font-weight: 700;
+   
+}
+
+.estilo-imagen {
+    width: 300px;
+}
+
+

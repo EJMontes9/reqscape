@@ -1,0 +1,96 @@
+/*comentario de prueba*/
+.fila1 {
+    display: flex;
+    margin: 2% 2% 0% 2%;
+}
+
+.cash {
+    font-size: 30px;
+    font-family: 'Digitalt';
+}
+
+.fila2 {
+    /*height: 50px;  Altura deseada */
+    background-color: transparent;
+    /* Color de fondo */
+    margin: 2% 40%;
+}
+
+.titulo-nivel-txt {
+    border: 1px solid #eee;
+    border-radius: 45px;
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-family: 'Digitalt';
+}
+.contenedor{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin-top: 5%;
+}
+.req-cl1{
+    box-shadow: 0px 5px 5px -5px #D1D8FF;
+    border-bottom: 5px solid #D1D8FF;
+    border-radius: 21px;
+    margin: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.req-txt{
+    font-family: 'Digitalt';
+}
+.opts-cl2{
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    margin: 5%;
+    gap: 5%;
+    font-family: 'Digitalt';
+}
+.opts-f1{
+    background-color: #FFDD17;
+    box-shadow: inset 0 -25px 25px -25px #FFB213;
+    border-bottom: 5px solid #FFB213;
+    padding: 2% 5%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.opts-f2{
+    background-color: #FC8AFF;
+    box-shadow: inset 0 -25px 25px -25px #DA57F0;
+    border-bottom: 5px solid #DA57F0;
+    padding: 2% 5%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.opts-f3{
+    background-color: #C286FF;
+    box-shadow: inset 0 -25px 25px -25px #A75CF4;
+    border-bottom: 5px solid #A75CF4;
+    padding: 2% 5%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.opts-f4{
+    background-color: #4CDAFE;
+    box-shadow: inset 0 -25px 25px -25px #09B9FF;
+    border-bottom: 5px solid #09B9FF;
+    padding: 2% 5%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.opts-f1, .opts-f2, .opts-f3, .opts-f4 {
+    cursor: pointer; /* Cambiar el cursor al pasar sobre las opciones */
+}
