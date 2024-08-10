@@ -153,9 +153,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             foreach ($sheetData as $index => $row) {
                 if ($index === 0) continue;
 
-                $name = mysqli_real_escape_string($con, $row[0]);
-                $is_ambiguous = strtolower($row[1]) === 'sí' ? 1 : (strtolower($row[1]) === 'no' ? 0 : (int)$row[1]);
-                $retro = mysqli_real_escape_string($con, $row[2]);
+                $name = isset($row[0]) ? mysqli_real_escape_string($con, $row[0]) : '';
+                $is_ambiguous = isset($row[1]) ? (strtolower($row[1]) === 'sí' ? 1 : (strtolower($row[1]) === 'no' ? 0 : (int)$row[1])) : 0;
+                $retro = isset($row[2]) ? mysqli_real_escape_string($con, $row[2]) : '';
 
                 $sql = "INSERT INTO requirements (name, is_ambiguous, retro) VALUES ('$name', $is_ambiguous, '$retro')";
 
