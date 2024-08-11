@@ -6,7 +6,8 @@ include "../../connection/connection.php";
 require_once '../../vendor/autoload.php';
 
 // Función para cargar las traducciones
-function loadTranslations($lang) {
+function loadTranslations($lang)
+{
     $translations = array();
     if ($lang == 'en') {
         $translations = array(
@@ -212,7 +213,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-function importCSV($fileTmpName, $con) {
+function importCSV($fileTmpName, $con)
+{
     $file = fopen($fileTmpName, 'r');
     fgetcsv($file); // Omite la primera fila (cabecera)
 
@@ -240,7 +242,8 @@ function importCSV($fileTmpName, $con) {
     echo "<script>alert('Importación completada.');</script>";
 }
 
-function importExcel($fileTmpName, $con) {
+function importExcel($fileTmpName, $con)
+{
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($fileTmpName);
     $worksheet = $spreadsheet->getActiveSheet();
     $isFirstRow = true;
@@ -323,19 +326,23 @@ $total_pages = ceil($total_results / $limit);
         .search-container {
             margin: 2% 0%;
         }
-        .offset-md-3  {
+
+        .offset-md-3 {
             margin-left: 0%;
         }
-        .profile-data{
+
+        .profile-data {
             background-color: #ffff;
         }
-        .titulo-tabla{
+
+        .titulo-tabla {
             background-color: #ffff;
-            display:flex;
+            display: flex;
             justify-content: center;
             font-family: "Digitalt";
             text-shadow: 2px 2px 4px rgba(107, 15, 150, 0.5);
         }
+
         /* Estilos para el contenedor de la imagen de perfil */
         .profile-pic-container {
             width: 120px; /* Tamaño fijo del contenedor */
@@ -358,36 +365,41 @@ $total_pages = ceil($total_results / $limit);
             justify-content: end;
             border-radius: 10%; /* Hacer la imagen circular */
             margin: 2%;
-            margin-bottom:0%;
-            
+            margin-bottom: 0%;
+
         }
-        .profile-data-item{
+
+        .profile-data-item {
             font-family: 'Digitalt';
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right:3%;
+            margin-right: 3%;
             margin-top: 0%;
-            margin-bottom:1%;
+            margin-bottom: 1%;
             color: #1E1C69;
         }
-        .usuario-logueado img{
-            width: 40px; 
-            height: 40px; 
+
+        .usuario-logueado img {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             margin: 2% 2%;
             margin-top: 0%;
             margin-left: 0%;
         }
-        .cont-prin{
+
+        .cont-prin {
             display: grid;
             grid-template-columns: 1fr 1fr;
             margin-top: 2%;
         }
+
         .fila1-cl1 {
             padding: 7%;
             border-bottom: 1px solid rgba(19, 67, 145, 0.4);
         }
+
         #languageSelector {
             appearance: none;
             -webkit-appearance: none;
@@ -406,34 +418,42 @@ $total_pages = ceil($total_results / $limit);
             font-family: 'Digitalt';
             font-weight: lighter;
         }
+
         #languageSelector:focus {
             border-color: #007BFF;
         }
+
         #languageSelector option {
             color: #333;
             background-color: #fff;
             text-align: center;
         }
-    .btn-generar-codigo{
 
-        display: flex;
-        justify-content: flex-end;
-    }
-    .fondo{
-        height: auto;
-    }
-    .columna-1{
-        height: 98%;
-    }
-    .columna-2{
-        height: 98%;
-    }
-    body{
-        background-color: #53F3FD;
-    }
-    #botongene{
-        margin-bottom: 1%;
-    }
+        .btn-generar-codigo {
+
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .fondo {
+            height: auto;
+        }
+
+        .columna-1 {
+            height: 98%;
+        }
+
+        .columna-2 {
+            height: 98%;
+        }
+
+        body {
+            background-color: #53F3FD;
+        }
+
+        #botongene {
+            margin-bottom: 1%;
+        }
     </style>
     <script>
         function validateForm() {
@@ -458,7 +478,7 @@ $total_pages = ceil($total_results / $limit);
             modal.style.display = "none";
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             var modal = document.getElementById("myModal");
             if (event.target == modal) {
                 modal.style.display = "none";
@@ -569,115 +589,135 @@ $total_pages = ceil($total_results / $limit);
 </head>
 <body>
 <div class="fondo">
-<div class="columna-1">
-            <div class="fila1-cl1">
-                <select id="languageSelector">
-                    <option value="en">English</option>
-                    <option value="es" selected>Español</option>
-                </select>
-            </div>
-    <div class="fila2-cl1">
-        <a href="inicio.php" class="lg-cl1">
-            <img src="../../assets/img/inicio/inicio.png"  alt="">
-            <span class="tooltiptext">Home</span>
-        </a>
-        <a href="niveles-juego.php" class="lg-cl1">
-            <img src="../../assets/img/inicio/niveles.png" alt="">
-            <span class="tooltiptext">Levels</span>
-        </a>
-        <a href="score-page.php" class="lg-cl1">
-            <img src="../../assets/img/inicio/scoreglobal.png" alt="">
-            <span class="tooltiptext">Score</span>
-        </a>
-        <a href="perfil.php" class="lg-cl1">
-            <img src="../../assets/img/inicio/perfil.png" alt="">
-            <span class="tooltiptext">Profile</span>
-        </a>
-        <a href="<?php echo ($_SESSION['perfil'] == 'profesor') ? 'reporte-niveles.php' : 'informacion.php'; ?>" class="lg-cl1">
-                    <img src="../../assets/img/inicio/<?php echo ($_SESSION['perfil'] == 'profesor') ? 'report.png' : 'info.png'; ?>" alt="">
-                    <span class="tooltiptext" id="info">Información</span>
-                </a>
-        <a href="inicio-sesion.php" class="lg-cl1">
-            <img src="../../assets/img/inicio/log-out.png" alt="">
-            <span class="tooltiptext">Logout</span>
-        </a>
-    </div>
-</div>
-<div class="columna-2">
-    <div class="fila1-cl2">
-        <div class="logo">
-            <img src="../../assets/img/logo.png" alt="">
+    <div class="columna-1">
+        <div class="fila1-cl1">
+            <select id="languageSelector">
+                <option value="en">English</option>
+                <option value="es" selected>Español</option>
+            </select>
         </div>
-        <div class="usuario-logueado">
-            <div class="profile-data-item">
-                <span id="username" class="username-span"><?php echo htmlspecialchars($row["usuario"], ENT_QUOTES, 'UTF-8'); ?></span>
-            </div>
-            <?php
-            // Mostrar la imagen de perfil si está disponible
-            if (!empty($row["imagen_perfil"])) {
-                echo '<img class="profile-pic" src="' . htmlspecialchars($row["imagen_perfil"], ENT_QUOTES, 'UTF-8') . '" alt="Imagen de perfil">';
-            } else {
-                // Si no hay imagen de perfil, se mostrará el avatar predeterminado
-                echo '<img class="profile-pic" src="../../modules/inicio/uploads/perfil.jpg" alt="Avatar predeterminado">';
-            }
-            ?>
+        <div class="fila2-cl1">
+            <a href="inicio.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/inicio.png" alt="">
+                <span class="tooltiptext">Home</span>
+            </a>
+            <a href="niveles-juego.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/niveles.png" alt="">
+                <span class="tooltiptext">Levels</span>
+            </a>
+            <a href="score-page.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/scoreglobal.png" alt="">
+                <span class="tooltiptext">Score</span>
+            </a>
+            <a href="perfil.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/perfil.png" alt="">
+                <span class="tooltiptext">Profile</span>
+            </a>
+            <a href="<?php echo ($_SESSION['perfil'] == 'profesor') ? 'reporte-niveles.php' : 'informacion.php'; ?>"
+               class="lg-cl1">
+                <img src="../../assets/img/inicio/<?php echo ($_SESSION['perfil'] == 'profesor') ? 'report.png' : 'info.png'; ?>"
+                     alt="">
+                <span class="tooltiptext" id="info">Información</span>
+            </a>
+            <a href="inicio-sesion.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/log-out.png" alt="">
+                <span class="tooltiptext">Logout</span>
+            </a>
         </div>
     </div>
-    <div class="fila2-cl2">
-        <div class="contenido-juego">
-            <h1 class="titulo-tabla"><?php echo $translations['table_title']; ?></h1>
-            <div class="profile-data">
-                <div class="container">
-                    
-                    <!-- Buscador -->
-                    <div class="row">
-                        <div class="cont-prin">
-                            <div class="col-md-6 offset-md-3 search-container">
-                                <input type="text" id="searchInput" class="form-control" placeholder="<?php echo $translations['search_placeholder']; ?>" value="<?php echo $search_query; ?>" onkeypress="if(event.keyCode == 13) searchRequirements()">
-                                <button type="button" class="btn btn-success mt-2" onclick="openCreateModal()"><?php echo $translations['create_button']; ?></button>
-                            </div>
-                            <!-- Formulario de importación -->
-                            <form action="" method="post" enctype="multipart/form-data" class="mt-2">
-                                <input type="file" name="file" class="form-control" accept=".csv, .xls, .xlsx" required>
-                                <button type="submit" name="import" class="btn btn-success mt-2">Importar</button>
-                            </form>
-                        </div>
-                        <!-- Buttons for selecting and deselecting all checkboxes -->
-                        <div class="btn-select-all">
-                            <button id="selectAll" type="button" class="btn btn-primary">Seleccionar Todos</button>
-                            <button id="deselectAll" type="button" class="btn btn-secondary">Deseleccionar Todos</button>
-                        </div>
-                    </div>
-                    <!-- Modal de registro -->
-                    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="registroModalLabel"><?php echo $translations['create_button']; ?></h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="columna-2">
+        <div class="fila1-cl2">
+            <div class="logo">
+                <img src="../../assets/img/logo.png" alt="">
+            </div>
+            <div class="usuario-logueado">
+                <div class="profile-data-item">
+                    <span id="username"
+                          class="username-span"><?php echo htmlspecialchars($row["usuario"], ENT_QUOTES, 'UTF-8'); ?></span>
+                </div>
+                <?php
+                // Mostrar la imagen de perfil si está disponible
+                if (!empty($row["imagen_perfil"])) {
+                    echo '<img class="profile-pic" src="' . htmlspecialchars($row["imagen_perfil"], ENT_QUOTES, 'UTF-8') . '" alt="Imagen de perfil">';
+                } else {
+                    // Si no hay imagen de perfil, se mostrará el avatar predeterminado
+                    echo '<img class="profile-pic" src="../../modules/inicio/uploads/perfil.jpg" alt="Avatar predeterminado">';
+                }
+                ?>
+            </div>
+        </div>
+        <div class="fila2-cl2">
+            <div class="contenido-juego">
+                <h1 class="titulo-tabla"><?php echo $translations['table_title']; ?></h1>
+                <div class="profile-data">
+                    <div class="container">
+
+                        <!-- Buscador -->
+                        <div class="row">
+                            <div class="cont-prin">
+                                <div class="col-md-6 offset-md-3 search-container">
+                                    <input type="text" id="searchInput" class="form-control"
+                                           placeholder="<?php echo $translations['search_placeholder']; ?>"
+                                           value="<?php echo $search_query; ?>"
+                                           onkeypress="if(event.keyCode == 13) searchRequirements()">
+                                    <button type="button" class="btn btn-success mt-2"
+                                            onclick="openCreateModal()"><?php echo $translations['create_button']; ?></button>
                                 </div>
-                                <div class="modal-body">
-                                    <form id="requirementForm" name="requirementForm" onsubmit="return validateForm()" method="post">
-                                        <input type="hidden" id="requirementId" name="id">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label"><?php echo $translations['name_label']; ?></label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="<?php echo $translations['name_label']; ?>" required>
-                                        </div>
-                                        <div id="palabrasContainer"></div>
-                                        <button type="button" class="btn btn-secondary mb-3" onclick="addPalabraField()"><?php echo $translations['add_word']; ?></button>
-                                        <button type="submit" class="btn btn-primary" name="insert" id="insertButton"><?php echo $translations['create_button']; ?></button>
-                                        <button type="submit" class="btn btn-primary" name="update" id="updateButton" style="display: none;"><?php echo $translations['update_button']; ?></button>
-                                    </form>
+                                <!-- Formulario de importación -->
+                                <form action="" method="post" enctype="multipart/form-data" class="mt-2">
+                                    <input type="file" name="file" class="form-control" accept=".csv, .xls, .xlsx"
+                                           required>
+                                    <button type="submit" name="import" class="btn btn-success mt-2">Importar</button>
+                                </form>
+                            </div>
+                            <!-- Buttons for selecting and deselecting all checkboxes -->
+                            <div class="btn-select-all">
+                                <button id="selectAll" type="button" class="btn btn-primary">Seleccionar Todos</button>
+                                <button id="deselectAll" type="button" class="btn btn-secondary">Deseleccionar Todos
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Modal de registro -->
+                        <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="registroModalLabel"><?php echo $translations['create_button']; ?></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="requirementForm" name="requirementForm"
+                                              onsubmit="return validateForm()" method="post">
+                                            <input type="hidden" id="requirementId" name="id">
+                                            <div class="mb-3">
+                                                <label for="name"
+                                                       class="form-label"><?php echo $translations['name_label']; ?></label>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                       placeholder="<?php echo $translations['name_label']; ?>"
+                                                       required>
+                                            </div>
+                                            <div id="palabrasContainer"></div>
+                                            <button type="button" class="btn btn-secondary mb-3"
+                                                    onclick="addPalabraField()"><?php echo $translations['add_word']; ?></button>
+                                            <button type="submit" class="btn btn-primary" name="insert"
+                                                    id="insertButton"><?php echo $translations['create_button']; ?></button>
+                                            <button type="submit" class="btn btn-primary" name="update"
+                                                    id="updateButton"
+                                                    style="display: none;"><?php echo $translations['update_button']; ?></button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Tabla -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form id="requirementsForm">
-                                <table class="table table-striped" id="requirementTable">
-                                    <thead>
+                        <!-- Tabla -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="requirementsForm">
+                                    <table class="table table-striped" id="requirementTable">
+                                        <thead>
                                         <tr>
                                             <th>Id</th>
                                             <th><?php echo $translations['name_label']; ?></th>
@@ -685,9 +725,9 @@ $total_pages = ceil($total_results / $limit);
                                             <th><?php echo $translations['actions_label']; ?></th>
                                             <th>Seleccionar</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php while ($requirement = $requirements->fetch_assoc()): 
+                                        </thead>
+                                        <tbody>
+                                        <?php while ($requirement = $requirements->fetch_assoc()):
                                             $palabras_result = $con->query("SELECT palabra, orden, requirements_correct FROM palabras WHERE requirements_id = " . $requirement['id']);
                                             $palabras = [];
                                             while ($palabra = $palabras_result->fetch_assoc()) {
@@ -697,104 +737,133 @@ $total_pages = ceil($total_results / $limit);
                                                     'correct' => $palabra['requirements_correct']
                                                 ];
                                             }
-                                        ?>
+                                            ?>
                                             <tr>
                                                 <td><?php echo $requirement['id']; ?></td>
                                                 <td><?php echo htmlspecialchars($requirement['name'], ENT_QUOTES, 'UTF-8'); ?></td>
                                                 <td>
                                                     <?php foreach ($palabras as $p): ?>
-                                                        <?php echo htmlspecialchars($p['palabra'], ENT_QUOTES, 'UTF-8'); ?> (<?php echo $p['correct'] ? $translations['correct'] : $translations['incorrect']; ?>)<br>
+                                                        <?php echo htmlspecialchars($p['palabra'], ENT_QUOTES, 'UTF-8'); ?> (<?php echo $p['correct'] ? $translations['correct'] : $translations['incorrect']; ?>)
+                                                        <br>
                                                     <?php endforeach; ?>
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-sm" onclick="editRequirement('<?php echo $requirement['id']; ?>', '<?php echo htmlspecialchars($requirement['name'], ENT_QUOTES, 'UTF-8'); ?>', <?php echo htmlspecialchars(json_encode($palabras), ENT_QUOTES, 'UTF-8'); ?>)"><i class="fas fa-edit"></i> <?php echo $translations['edit']; ?></button>
-                                                    <form method="post" onsubmit="return confirm('<?php echo $translations['confirm_delete']; ?>');" style="display:inline;">
-                                                        <input type="hidden" name="id" value="<?php echo $requirement['id']; ?>">
-                                                        <button type="submit" name="delete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> <?php echo $translations['delete']; ?></button>
+                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                            onclick="editRequirement('<?php echo $requirement['id']; ?>', '<?php echo htmlspecialchars($requirement['name'], ENT_QUOTES, 'UTF-8'); ?>', <?php echo htmlspecialchars(json_encode($palabras), ENT_QUOTES, 'UTF-8'); ?>)">
+                                                        <i class="fas fa-edit"></i> <?php echo $translations['edit']; ?>
+                                                    </button>
+                                                    <form method="post"
+                                                          onsubmit="return confirm('<?php echo $translations['confirm_delete']; ?>');"
+                                                          style="display:inline;">
+                                                        <input type="hidden" name="id"
+                                                               value="<?php echo $requirement['id']; ?>">
+                                                        <button type="submit" name="delete"
+                                                                class="btn btn-danger btn-sm"><i
+                                                                    class="fas fa-trash"></i> <?php echo $translations['delete']; ?>
+                                                        </button>
                                                     </form>
                                                 </td>
                                                 <td>
-                                                    <input class="requirement-checkbox2"  type="checkbox" name="selected_requirements[]" value="<?php echo $requirement['id']; ?>">
+                                                    <input class="requirement-checkbox2" type="checkbox"
+                                                           name="selected_requirements[]"
+                                                           value="<?php echo $requirement['id']; ?>">
                                                 </td>
                                             </tr>
                                         <?php endwhile; ?>
-                                    </tbody>
-                                </table>
-                                <!-- Paginador -->
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="page-item <?php if($page <= 1) { echo 'disabled'; } ?>">
-                                                    <a class="page-link" href="<?php if($page > 1) { echo "?query=$search_query&page=" . ($page - 1); } else { echo '#'; } ?>" tabindex="-1"><?php echo $translations['previous']; ?></a>
-                                                </li>
-                                                <?php
-                                                $start = max(1, $page - 2);
-                                                $end = min($total_pages, $page + 2);
-
-                                                if ($start > 1) {
-                                                    echo '<li class="page-item"><a class="page-link" href="?query=' . htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8') . '&page=1">1</a></li>';
-                                                    if ($start > 2) {
-                                                        echo '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
-                                                    }
-                                                }
-
-                                                for ($i = $start; $i <= $end; $i++): ?>
-                                                    <li class="page-item <?php if($page == $i) { echo 'active'; } ?>">
-                                                        <a class="page-link" href="?query=<?php echo htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8'); ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                        </tbody>
+                                    </table>
+                                    <!-- Paginador -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item <?php if ($page <= 1) {
+                                                        echo 'disabled';
+                                                    } ?>">
+                                                        <a class="page-link" href="<?php if ($page > 1) {
+                                                            echo "?query=$search_query&page=" . ($page - 1);
+                                                        } else {
+                                                            echo '#';
+                                                        } ?>" tabindex="-1"><?php echo $translations['previous']; ?></a>
                                                     </li>
-                                                <?php endfor; ?>
+                                                    <?php
+                                                    $start = max(1, $page - 2);
+                                                    $end = min($total_pages, $page + 2);
 
-                                                <?php
-                                                if ($end < $total_pages) {
-                                                    if ($end < $total_pages - 1) {
-                                                        echo '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+                                                    if ($start > 1) {
+                                                        echo '<li class="page-item"><a class="page-link" href="?query=' . htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8') . '&page=1">1</a></li>';
+                                                        if ($start > 2) {
+                                                            echo '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+                                                        }
                                                     }
-                                                    echo '<li class="page-item"><a class="page-link" href="?query=' . htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8') . '&page=' . $total_pages . '">' . $total_pages . '</a></li>';
-                                                }
-                                                ?>
-                                                <li class="page-item <?php if($page >= $total_pages) { echo 'disabled'; } ?>">
-                                                    <a class="page-link" href="<?php if($page < $total_pages) { echo "?query=$search_query&page=" . ($page + 1); } else { echo '#'; } ?>"><?php echo $translations['next']; ?></a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
 
-                                <div class="btn-generar-codigo">
-                                    <button id="botongene" type="button" class="btn btn-success mt-2" onclick="generateCode()">Generar Código</button>
-                                </div>
-                            </form>
+                                                    for ($i = $start; $i <= $end; $i++): ?>
+                                                        <li class="page-item <?php if ($page == $i) {
+                                                            echo 'active';
+                                                        } ?>">
+                                                            <a class="page-link"
+                                                               href="?query=<?php echo htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8'); ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                                        </li>
+                                                    <?php endfor; ?>
+
+                                                    <?php
+                                                    if ($end < $total_pages) {
+                                                        if ($end < $total_pages - 1) {
+                                                            echo '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+                                                        }
+                                                        echo '<li class="page-item"><a class="page-link" href="?query=' . htmlspecialchars($search_query, ENT_QUOTES, 'UTF-8') . '&page=' . $total_pages . '">' . $total_pages . '</a></li>';
+                                                    }
+                                                    ?>
+                                                    <li class="page-item <?php if ($page >= $total_pages) {
+                                                        echo 'disabled';
+                                                    } ?>">
+                                                        <a class="page-link" href="<?php if ($page < $total_pages) {
+                                                            echo "?query=$search_query&page=" . ($page + 1);
+                                                        } else {
+                                                            echo '#';
+                                                        } ?>"><?php echo $translations['next']; ?></a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+
+                                    <div class="btn-generar-codigo">
+                                        <button id="botongene" type="button" class="btn btn-success mt-2"
+                                                onclick="generateCode()">Generar Código
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>            
-        </div>      
+            </div>
+        </div>
     </div>
-</div>
-<!-- Incluye jQuery antes de Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Incluye Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Select All Button
-    document.getElementById('selectAll').addEventListener('click', function() {
-        // Select all checkboxes in the table
-        document.querySelectorAll('#requirementTable .requirement-checkbox2').forEach(function(checkbox) {
-            checkbox.checked = true;
-        });
-    });
+    <!-- Incluye jQuery antes de Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluye Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Select All Button
+            document.getElementById('selectAll').addEventListener('click', function () {
+                // Select all checkboxes in the table
+                document.querySelectorAll('#requirementTable .requirement-checkbox2').forEach(function (checkbox) {
+                    checkbox.checked = true;
+                });
+            });
 
-    // Deselect All Button
-    document.getElementById('deselectAll').addEventListener('click', function() {
-        // Deselect all checkboxes in the table
-        document.querySelectorAll('#requirementTable .requirement-checkbox2').forEach(function(checkbox) {
-            checkbox.checked = false;
+            // Deselect All Button
+            document.getElementById('deselectAll').addEventListener('click', function () {
+                // Deselect all checkboxes in the table
+                document.querySelectorAll('#requirementTable .requirement-checkbox2').forEach(function (checkbox) {
+                    checkbox.checked = false;
+                });
+            });
         });
-    });
-});
-</script>
+    </script>
 </body>
 </html>
 

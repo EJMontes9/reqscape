@@ -753,6 +753,14 @@ $con->close();
                     checkbox.checked = false;
                 });
             });
+
+            // Generate Code Button
+            document.getElementById('botongene').addEventListener('click', function () {
+                // Deselect all checkboxes in the table
+                document.querySelectorAll('#requirementTable .requirement-checkbox').forEach(function (checkbox) {
+                    checkbox.checked = false;
+                });
+            });
         });
     </script>
 </body>
