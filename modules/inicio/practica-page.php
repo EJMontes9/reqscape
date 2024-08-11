@@ -21,7 +21,8 @@ $translations = [
         'feedback' => 'FEEDBACK',
         'correct' => 'You selected correctly',
         'incorrect' => 'You selected incorrectly',
-        'score_label' => 'Score:'
+        'score_label' => 'Score:',
+        'final_message' => 'You have completed the practice. Your final score is:'
     ],
     'es' => [
         'home' => 'Inicio',
@@ -36,7 +37,8 @@ $translations = [
         'feedback' => 'RETROALIMENTACIÓN',
         'correct' => 'Seleccionaste correctamente',
         'incorrect' => 'Seleccionaste incorrectamente',
-        'score_label' => 'Puntuación:'
+        'score_label' => 'Puntuación:',
+        'final_message' => 'Has completado la práctica. Tu puntuación final es:'
     ]
 ];
 
@@ -46,6 +48,12 @@ $translations = $translations[$lang];
 if (!isset($_SESSION['score'])) {
     $_SESSION['score'] = 0;
 }
+
+// Inicializar contador de preguntas si no existe
+if (!isset($_SESSION['question_count'])) {
+    $_SESSION['question_count'] = 0;
+}
+
 
 // Consulta para obtener los datos del usuario
 if (isset($_SESSION['user_id'])) {
@@ -87,6 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: " . $_SERVER['REQUEST_URI']);
         exit();
     }
+    if (isset($_POST['question_count'])) {
+        $_SESSION['question_count'] = intval($_POST['question_count']);
+    }
 }
 ?>
 
@@ -108,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 5%;
             font-weight: lighter;
         }
+
         .cash {
             font-size: 30px;
             font-family: 'Digitalt';
@@ -123,9 +135,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #eee;
             font-family: 'Digitalt';
         }
+
         .fila1-titulo span {
             margin-top: 2%;
         }
+
         .titulo-nivel-txt {
             border: 1px solid #eee;
             border-radius: 45px;
@@ -136,12 +150,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 40px;
             font-family: 'Digitalt';
         }
+
         .titulo-coin {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             font-weight: 100px;
         }
+
         .contenido-juego {
             background-image: linear-gradient(to bottom, #2C9AFF, #53F3FD);
             margin: 2%;
@@ -150,15 +166,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 10px;
             height: 93%;
         }
+
         #score {
             font-size: 24px;
             font-weight: lighter;
         }
+
         .profile-pic-container {
             width: 120px;
             height: 120px;
             position: relative;
         }
+
         .contenedor-img.circular {
             width: 50%;
             height: 0;
@@ -166,6 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             overflow: hidden;
             border-radius: 10%;
         }
+
         .usuario-logueado {
             display: flex;
             justify-content: end;
@@ -173,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 2%;
             margin-bottom: 0%;
         }
+
         .profile-data-item {
             font-family: 'Digitalt';
             display: flex;
@@ -183,6 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 1%;
             color: #1E1C69;
         }
+
         .usuario-logueado img {
             width: 40px;
             height: 40px;
@@ -191,10 +213,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 0%;
             margin-left: 0%;
         }
+
         .contenido-juego {
             text-align: center;
             margin: 20px;
         }
+
         .texto-req {
             background-color: #f0f0f0;
             padding: 20px;
@@ -205,9 +229,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-right: auto;
             font-size: 20px;
         }
+
         .btn-1, .btn-2 {
             margin: 10px;
         }
+
         .btn-1 button, .btn-2 button {
             background: linear-gradient(45deg, #A6F208 50%, #67EB00 50%);
             box-shadow: inset 0 0 10px #4EC307;
@@ -220,10 +246,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-family: 'Digitalt';
             border: 1px solid #FFFFFF;
         }
+
         .btn-2 button:hover, .btn-1 button:hover {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             transition: box-shadow 0.3s ease;
         }
+
         #myModal {
             display: none;
             position: fixed;
@@ -232,13 +260,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             overflow: auto;
             font-family: 'Digitalt';
             font-weight: 100;
             border-radius: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
+
         .modal-content {
             background-color: #fefefe;
             margin: 15% auto;
@@ -248,6 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 40%;
             position: relative;
         }
+
         .close {
             position: absolute;
             top: 10px;
@@ -256,26 +286,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cursor: pointer;
             background-color: #67EB00;
             border: 2px solid white;
-            border-radius: 50%; 
+            border-radius: 50%;
             color: white;
             padding: 3% 4%;
         }
+
         .close:hover {
             background-color: #FF1717;
         }
+
         .mensaje {
             background-color: #2C9AFF;
             padding: 2%;
             color: #fefefe;
             font-size: 30px;
         }
+
         #modal-text {
             font-size: 25px;
         }
+
         .fila1-cl1 {
             padding: 7%;
             border-bottom: 1px solid rgba(19, 67, 145, 0.4);
         }
+
         #languageSelector {
             appearance: none;
             -webkit-appearance: none;
@@ -294,168 +329,268 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-family: 'Digitalt';
             font-weight: lighter;
         }
+
         #languageSelector:focus {
             border-color: #007BFF;
         }
+
         #languageSelector option {
             color: #333;
             background-color: #fff;
             text-align: center;
         }
-        .texto-req{
+
+        .texto-req {
             border-radius: 30px;
         }
+
+        /* Add this CSS to your existing styles */
+        #finalModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+            font-family: 'Digitalt';
+            font-weight: 100;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #finalModal .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 20px;
+            width: 40%;
+            position: relative;
+        }
+
+        #finalModal .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #67EB00;
+            border: 2px solid white;
+            border-radius: 50%;
+            color: white;
+            padding: 3% 4%;
+        }
+
+        #finalModal .close:hover {
+            background-color: #FF1717;
+        }
+
+        #finalModal .mensaje {
+            background-color: #2C9AFF;
+            padding: 2%;
+            color: #fefefe;
+            font-size: 30px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="fondo">
-        <div class="columna-1">
+<div class="fondo">
+    <div class="columna-1">
         <div class="fila1-cl1">
-                <form method="post" id="language-form">
-                    <select id="languageSelector" name="language" onchange="document.getElementById('language-form').submit()">
-                        <option value="en" <?php echo $lang == 'en' ? 'selected' : ''; ?>>English</option>
-                        <option value="es" <?php echo $lang == 'es' ? 'selected' : ''; ?>>Español</option>
-                    </select>
-                </form>
+            <form method="post" id="language-form">
+                <select id="languageSelector" name="language"
+                        onchange="document.getElementById('language-form').submit()">
+                    <option value="en" <?php echo $lang == 'en' ? 'selected' : ''; ?>>English</option>
+                    <option value="es" <?php echo $lang == 'es' ? 'selected' : ''; ?>>Español</option>
+                </select>
+            </form>
+        </div>
+        <div class="fila2-cl1">
+            <a href="inicio.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/inicio.png" alt="">
+                <span class="tooltiptext" data-translate="home"><?php echo $translations['home']; ?></span>
+            </a>
+            <a href="niveles-juego.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/niveles.png" alt="">
+                <span class="tooltiptext" data-translate="levels"><?php echo $translations['levels']; ?></span>
+            </a>
+            <a href="score-page.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/scoreglobal.png" alt="">
+                <span class="tooltiptext" data-translate="score"><?php echo $translations['score']; ?></span>
+            </a>
+            <a href="perfil.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/perfil.png" alt="">
+                <span class="tooltiptext" data-translate="profile"><?php echo $translations['profile']; ?></span>
+            </a>
+            <a href="<?php echo ($_SESSION['perfil'] == 'profesor') ? 'reporte-niveles.php' : 'informacion.php'; ?>"
+               class="lg-cl1">
+                <img src="../../assets/img/inicio/<?php echo ($_SESSION['perfil'] == 'profesor') ? 'report.png' : 'info.png'; ?>"
+                     alt="">
+                <span class="tooltiptext" data-translate="info"><?php echo $translations['info']; ?></span>
+            </a>
+            <a href="inicio-sesion.php" class="lg-cl1">
+                <img src="../../assets/img/inicio/log-out.png" alt="">
+                <span class="tooltiptext" data-translate="logout"><?php echo $translations['logout']; ?></span>
+            </a>
+        </div>
+    </div>
+    <div class="columna-2">
+        <div class="fila1-cl2">
+            <div class="logo">
+                <img src="../../assets/img/logo.png" alt="">
             </div>
-            <div class="fila2-cl1">
-                <a href="inicio.php" class="lg-cl1">
-                    <img src="../../assets/img/inicio/inicio.png" alt="">
-                    <span class="tooltiptext" data-translate="home"><?php echo $translations['home']; ?></span>
-                </a>
-                <a href="niveles-juego.php" class="lg-cl1">
-                    <img src="../../assets/img/inicio/niveles.png" alt="">
-                    <span class="tooltiptext" data-translate="levels"><?php echo $translations['levels']; ?></span>
-                </a>
-                <a href="score-page.php" class="lg-cl1">
-                    <img src="../../assets/img/inicio/scoreglobal.png" alt="">
-                    <span class="tooltiptext" data-translate="score"><?php echo $translations['score']; ?></span>
-                </a>
-                <a href="perfil.php" class="lg-cl1">
-                    <img src="../../assets/img/inicio/perfil.png" alt="">
-                    <span class="tooltiptext" data-translate="profile"><?php echo $translations['profile']; ?></span>
-                </a>
-                <a href="<?php echo ($_SESSION['perfil'] == 'profesor') ? 'reporte-niveles.php' : 'informacion.php'; ?>" class="lg-cl1">
-                    <img src="../../assets/img/inicio/<?php echo ($_SESSION['perfil'] == 'profesor') ? 'report.png' : 'info.png'; ?>" alt="">
-                    <span class="tooltiptext" data-translate="info"><?php echo $translations['info']; ?></span>
-                </a>
-                <a href="inicio-sesion.php" class="lg-cl1">
-                    <img src="../../assets/img/inicio/log-out.png" alt="">
-                    <span class="tooltiptext" data-translate="logout"><?php echo $translations['logout']; ?></span>
-                </a>
+            <div class="usuario-logueado">
+                <div class="profile-data-item">
+                    <span id="username" class="username-span"><?php echo $row["usuario"]; ?></span>
+                </div>
+                <?php
+                if (!empty($row["imagen_perfil"])) {
+                    echo '<img class="profile-pic" src="' . $row["imagen_perfil"] . '" alt="Imagen de perfil">';
+                } else {
+                    echo '<img class="profile-pic" src="../../modules/inicio/uploads/perfil.jpg" alt="Avatar predeterminado">';
+                }
+                ?>
             </div>
         </div>
-        <div class="columna-2">
-            <div class="fila1-cl2">
-                <div class="logo">
-                    <img src="../../assets/img/logo.png" alt="">
-                </div>
-                <div class="usuario-logueado">
-                    <div class="profile-data-item">
-                        <span id="username" class="username-span"><?php echo $row["usuario"]; ?></span>
+        <div class="fila2-cl2">
+            <div class="contenido-juego">
+                <div class="titulo-coin">
+                    <div class="fila1">
+                        <div class="cash" id="score"
+                             data-translate="score_label"><?php echo $translations['score_label']; ?><?php echo $_SESSION['score']; ?></div>
+                        <div class="coin">
+                            <img src="../../assets/img/juego-lvl1/coin.png" alt="Coin">
+                        </div>
                     </div>
-                    <?php
-                    if (!empty($row["imagen_perfil"])) {
-                        echo '<img class="profile-pic" src="' . $row["imagen_perfil"] . '" alt="Imagen de perfil">';
-                    } else {
-                        echo '<img class="profile-pic" src="../../modules/inicio/uploads/perfil.jpg" alt="Avatar predeterminado">';
-                    }
-                    ?>
+                    <h1 class="fila1-titulo"><span
+                                data-translate="practice"><?php echo $translations['practice']; ?></span></h1>
                 </div>
-            </div>
-            <div class="fila2-cl2">
-                <div class="contenido-juego">
-                    <div class="titulo-coin">
-                        <div class="fila1">
-                            <div class="cash" id="score" data-translate="score_label"><?php echo $translations['score_label']; ?> <?php echo $_SESSION['score']; ?></div>
-                            <div class="coin">
-                                <img src="../../assets/img/juego-lvl1/coin.png" alt="Coin">
-                            </div>
-                        </div>
-                        <h1 class="fila1-titulo"><span data-translate="practice"><?php echo $translations['practice']; ?></span></h1>
+                <div class="container-practica">
+                    <div class="texto-req" id="texto-req">
+                        <span class="txt"><?php echo $requerimiento['name']; ?></span>
                     </div>
-                    <div class="container-practica">
-                        <div class="texto-req" id="texto-req">
-                            <span class="txt"><?php echo $requerimiento['name']; ?></span>
-                        </div>
-                        <div class="btn-1">
-                            <button data-translate="ambiguous" onclick="checkAnswer(true)"><?php echo $translations['ambiguous']; ?></button>
-                        </div>
-                        <div class="btn-2">
-                            <button data-translate="not_ambiguous" onclick="checkAnswer(false)"><?php echo $translations['not_ambiguous']; ?></button>
-                        </div>
+                    <div class="btn-1">
+                        <button data-translate="ambiguous"
+                                onclick="checkAnswer(true)"><?php echo $translations['ambiguous']; ?></button>
+                    </div>
+                    <div class="btn-2">
+                        <button data-translate="not_ambiguous"
+                                onclick="checkAnswer(false)"><?php echo $translations['not_ambiguous']; ?></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="mensaje" data-translate="feedback"><?php echo $translations['feedback']; ?></div>
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p id="modal-text"></p>
-        </div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="mensaje" data-translate="feedback"><?php echo $translations['feedback']; ?></div>
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="modal-text"></p>
     </div>
-    
-    <script>
-        let isAmbiguous = <?php echo $requerimiento['is_ambiguous'] ? 'true' : 'false'; ?>;
-        let score = <?php echo $_SESSION['score']; ?>;
+</div>
 
-        function checkAnswer(answer) {
-            let message = answer === isAmbiguous ? "<?php echo $translations['correct']; ?>" : "<?php echo $translations['incorrect']; ?>";
-            if (answer === isAmbiguous) {
-                score += 10;
-                updateScore(score);
-            }
+<!-- Final Modal -->
+<div id="finalModal" class="modal">
+    <div class="modal-content">
+        <div class="mensaje"><?php echo $translations['final_message']; ?> <span id="final-score"></span></div>
+        <span class="close" onclick="closeFinalModal()">&times;</span>
+    </div>
+</div>
+
+<script>
+
+    let questionCount = <?php echo $_SESSION['question_count']; ?>;
+
+
+    let isAmbiguous = <?php echo $requerimiento['is_ambiguous'] ? 'true' : 'false'; ?>;
+    let score = <?php echo $_SESSION['score']; ?>;
+
+    function checkAnswer(answer) {
+        let message = answer === isAmbiguous ? "<?php echo $translations['correct']; ?>" : "<?php echo $translations['incorrect']; ?>";
+        if (answer === isAmbiguous) {
+            score += 10;
+            updateScore(score);
+        }
+        questionCount++;
+        if (questionCount >= 10) {
+            showFinalModal();
+        } else {
             showModal(message);
         }
+    }
 
-        function updateScore(newScore) {
-            document.getElementById("score").textContent = "<?php echo $translations['score_label']; ?> " + newScore;
-            // Actualizar la sesión en el servidor
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("score=" + newScore);
+    function updateScore(newScore) {
+        document.getElementById("score").textContent = "<?php echo $translations['score_label']; ?> " + newScore;
+        // Actualizar la sesión en el servidor
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("score=" + newScore + "&question_count=" + questionCount);
+    }
+
+    function showModal(message) {
+        document.getElementById("modal-text").textContent = message;
+        document.getElementById("myModal").style.display = "block";
+        setTimeout(loadNewRequirement, 2000); // Carga un nuevo requerimiento después de 2 segundos
+    }
+
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    function showFinalModal() {
+        document.getElementById("final-score").textContent = score;
+        document.getElementById("finalModal").style.display = "block";
+        setTimeout(() => {
+            closeFinalModal();
+            resetGame();
+        }, 3000); // Cierra el modal y reinicia el juego después de 3 segundos
+    }
+
+    function closeFinalModal() {
+        document.getElementById("finalModal").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        let modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
+    }
 
-        function showModal(message) {
-            document.getElementById("modal-text").textContent = message;
-            document.getElementById("myModal").style.display = "block";
-            setTimeout(loadNewRequirement, 2000); // Carga un nuevo requerimiento después de 2 segundos
-        }
+    function loadNewRequirement() {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", window.location.href, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let response = xhr.responseText;
+                let tempDiv = document.createElement('div');
+                tempDiv.innerHTML = response;
+                let newRequirement = tempDiv.querySelector("#texto-req .txt").textContent;
+                let newIsAmbiguous = tempDiv.querySelector("script").innerText.includes("true");
 
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            let modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
+                document.getElementById("texto-req").innerHTML = `<span class="txt">${newRequirement}</span>`;
+                isAmbiguous = newIsAmbiguous;
+                closeModal();
             }
-        }
+        };
+        xhr.send();
+    }
 
-        function loadNewRequirement() {
-            let xhr = new XMLHttpRequest();
-            xhr.open("GET", window.location.href, true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    let response = xhr.responseText;
-                    let tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = response;
-                    let newRequirement = tempDiv.querySelector("#texto-req .txt").textContent;
-                    let newIsAmbiguous = tempDiv.querySelector("script").innerText.includes("true");
-
-                    document.getElementById("texto-req").innerHTML = `<span class="txt">${newRequirement}</span>`;
-                    isAmbiguous = newIsAmbiguous;
-                    closeModal();
-                }
-            };
-            xhr.send();
-        }
-    </script>
+    function resetGame() {
+        score = 0;
+        questionCount = 0;
+        updateScore(score);
+        // Recargar la página para iniciar una nueva sesión
+        location.reload();
+    }
+</script>
 </body>
 </html>
