@@ -104,9 +104,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO requirements (name, is_ambiguous, retro) VALUES ('$name', $is_ambiguous, '$retro')";
 
         if ($con->query($sql) === TRUE) {
-            echo "<script>alert('" . $translations['insert_success'] . "');</script>";
+            echo "<div class='alert alert-success' role='alert'><span class='font-medium'>Success alert!</span> " . $translations['insert_success'] . "</div>";
         } else {
-            echo "<script>alert('" . $translations['insert_error'] . $sql . "<br>" . $con->error . "');</script>";
+            echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . $translations['insert_error'] . $sql . "<br>" . $con->error . "</div>";
         }
     } elseif (isset($_POST['delete'])) {
         $id = $_POST['id'];
@@ -115,12 +115,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($con->query($sql) === TRUE) {
             $sql = "DELETE FROM requirements WHERE id = $id";
             if ($con->query($sql) === TRUE) {
-                echo "<script>alert('" . $translations['delete_success'] . "');</script>";
+                echo "<div class='alert alert-success' role='alert'><span class='font-medium'>Success alert!</span> " . $translations['delete_success'] . "</div>";
             } else {
-                echo "<script>alert('" . $translations['delete_error'] . $con->error . "');</script>";
+                echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . $translations['delete_error'] . $con->error . "</div>";
             }
         } else {
-            echo "<script>alert('" . $translations['delete_error'] . $con->error . "');</script>";
+            echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . $translations['delete_error'] . $con->error . "</div>";
         }
     } elseif (isset($_POST['update'])) {
         $id = $_POST['id'];
@@ -131,9 +131,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE requirements SET name = '$name', is_ambiguous = $is_ambiguous, retro = '$retro' WHERE id = $id";
 
         if ($con->query($sql) === TRUE) {
-            echo "<script>alert('" . $translations['update_success'] . "');</script>";
+            echo "<div class='alert alert-success' role='alert'><span class='font-medium'>Success alert!</span> " . $translations['update_success'] . "</div>";
         } else {
-            echo "<script>alert('" . $translations['update_error'] . $con->error . "');</script>";
+            echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . $translations['update_error'] . $con->error . "</div>";
         }
     } elseif (isset($_POST['import'])) {
         $file_mimes = array('application/vnd.ms-excel', 'text/plain', 'text/csv', 'text/tsv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -161,13 +161,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sql = "INSERT INTO requirements (name, is_ambiguous, retro) VALUES ('$name', $is_ambiguous, '$retro')";
 
                 if ($con->query($sql) !== TRUE) {
-                    echo "<script>alert('" . $translations['insert_error'] . $sql . "<br>" . $con->error . "');</script>";
+                    echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . $translations['insert_error'] . $sql . "<br>" . $con->error . "</div>";
                 }
             }
 
-            echo "<script>alert('" . $translations['import_success'] . "');</script>";
+            echo "<div class='alert alert-success' role='alert'><span class='font-medium'>Success alert!</span> " . $translations['import_success'] . "</div>";
         } else {
-            echo "<script>alert('" . $translations['import_error'] . "');</script>";
+            echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . $translations['import_error'] . "</div>";
         }
     } elseif (isset($_POST['generate_code'])) {
         if (isset($_POST['requirements']) && !empty($_POST['requirements'])) {
@@ -186,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($result->num_rows > 0) {
                     $validRequirements[] = $requirement_id;
                 } else {
-                    echo "<script>alert('Error: El requerimiento con ID $requirement_id no existe.');</script>";
+                    echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> Error: El requerimiento con ID $requirement_id no existe.</div>";
                 }
             }
 
@@ -215,10 +215,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<script>alert('" . $e->getMessage() . "');</script>";
                 }
             } else {
-                echo "<script>alert('No se pudo generar el código porque no hay requerimientos válidos.');</script>";
+                echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> No se pudo generar el código porque no hay requerimientos válidos.</div>";
             }
         } else {
-            echo "<script>alert('Por favor seleccione al menos un requerimiento para generar el código.');</script>";
+            echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> Por favor seleccione al menos un requerimiento para generar el código.</div>";
         }
     }
 
@@ -400,8 +400,46 @@ $con->close();
             width: 100%;
             height: 50%;
         }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            border-radius: 0.375rem;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .alert-danger {
+            color: #b91c1c;
+            background-color: #fef2f2;
+        }
+
+        .alert-success {
+            color: #065f46;
+            background-color: #d1fae5;
+        }
+
+        .alert .font-medium {
+            font-weight: 500;
+        }
+
     </style>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertBox = document.querySelector('.alert');
+            if (alertBox) {
+                alertBox.style.display = 'block';
+                setTimeout(function () {
+                    alertBox.style.display = 'none';
+                }, 3000);
+            }
+        });
+
+
         document.addEventListener('DOMContentLoaded', function () {
             const checkboxes = document.querySelectorAll('input[name="requirements[]"]');
             const generateButton = document.querySelector('button[name="generate_code"]');
