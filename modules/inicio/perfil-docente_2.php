@@ -217,8 +217,14 @@ function importCSV($fileTmpName, $con)
 {
     $file = fopen($fileTmpName, 'r');
     fgetcsv($file); // Omite la primera fila (cabecera)
+    $errors = [];
 
     while (($row = fgetcsv($file, 1000, ",")) !== FALSE) {
+        if (count($row) < 4) {
+            $errors[] = "Error: Una fila no tiene suficientes datos.";
+            continue;
+        }
+
         $requerimiento = explode(';', $row[0]);
         $orden = explode(';', $row[2]);
         $es_correcta = explode(';', $row[3]);
@@ -231,15 +237,20 @@ function importCSV($fileTmpName, $con)
                 $orden_palabra = $orden[$index];
                 $sql_palabra = "INSERT INTO palabras (requirements_id, palabra, orden, requirements_correct) VALUES ($requirement_id, '$palabra', '$orden_palabra', $palabra_correct)";
                 if (!mysqli_query($con, $sql_palabra)) {
-                    echo "Error al insertar datos: " . mysqli_error($con) . "<br>";
+                    $errors[] = "Error al insertar palabra: " . mysqli_error($con);
                 }
             }
         } else {
-            echo "Error al insertar datos: " . mysqli_error($con) . "<br>";
+            $errors[] = "Error al insertar datos: " . mysqli_error($con);
         }
     }
     fclose($file);
-    echo "<script>alert('Importación completada.');</script>";
+
+    if (!empty($errors)) {
+        echo "<script>alert('" . implode("\\n", $errors) . "');</script>";
+    } else {
+        echo "<script>alert('Importación completada.');</script>";
+    }
 }
 
 function importExcel($fileTmpName, $con)
@@ -247,6 +258,7 @@ function importExcel($fileTmpName, $con)
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($fileTmpName);
     $worksheet = $spreadsheet->getActiveSheet();
     $isFirstRow = true;
+    $errors = [];
 
     foreach ($worksheet->getRowIterator() as $row) {
         if ($isFirstRow) {
@@ -262,34 +274,37 @@ function importExcel($fileTmpName, $con)
             $data[] = $cell->getValue();
         }
 
-        if (count($data) >= 4) {
-            $requerimiento = $data[0];
-            $palabras = explode(';', $data[1]);
-            $orden = explode(';', $data[2]);
-            $es_correcta = explode(';', $data[3]);
+        if (count($data) < 4) {
+            $errors[] = "Error: Una fila no tiene suficientes datos.";
+            continue;
+        }
 
-            $sql = "INSERT INTO requirements_2 (name) VALUES ('" . mysqli_real_escape_string($con, $requerimiento) . "')";
-            if (mysqli_query($con, $sql)) {
-                $requirement_id = mysqli_insert_id($con); // Obtener el ID del requerimiento insertado
-                foreach ($palabras as $index => $palabra) {
-                    $palabra_correct = $es_correcta[$index] === 'T' ? 1 : 0;
-                    $orden_palabra = $orden[$index];
+        $requerimiento = $data[0];
+        $palabras = explode(';', $data[1]);
+        $orden = explode(';', $data[2]);
+        $es_correcta = explode(';', $data[3]);
 
-                    $palabra = mysqli_real_escape_string($con, substr($palabra, 0, 255)); // Ajustar el tamaño máximo permitido
-
-                    $sql_palabra = "INSERT INTO palabras (requirements_id, palabra, orden, requirements_correct) VALUES ($requirement_id, '$palabra', '$orden_palabra', $palabra_correct)";
-                    if (!mysqli_query($con, $sql_palabra)) {
-                        echo "Error al insertar datos: " . mysqli_error($con) . "<br>";
-                    }
+        $sql = "INSERT INTO requirements_2 (name) VALUES ('" . mysqli_real_escape_string($con, $requerimiento) . "')";
+        if (mysqli_query($con, $sql)) {
+            $requirement_id = mysqli_insert_id($con); // Obtener el ID del requerimiento insertado
+            foreach ($palabras as $index => $palabra) {
+                $palabra_correct = $es_correcta[$index] === 'T' ? 1 : 0;
+                $orden_palabra = $orden[$index];
+                $sql_palabra = "INSERT INTO palabras (requirements_id, palabra, orden, requirements_correct) VALUES ($requirement_id, '$palabra', '$orden_palabra', $palabra_correct)";
+                if (!mysqli_query($con, $sql_palabra)) {
+                    $errors[] = "Error al insertar palabra: " . mysqli_error($con);
                 }
-            } else {
-                echo "Error al insertar datos: " . mysqli_error($con) . "<br>";
             }
         } else {
-            echo "Error: Una fila no tiene suficientes datos.";
+            $errors[] = "Error al insertar datos: " . mysqli_error($con);
         }
     }
-    echo "<script>alert('Importación completada.');</script>";
+
+    if (!empty($errors)) {
+        echo "<script>alert('" . implode("\\n", $errors) . "');</script>";
+    } else {
+        echo "<script>alert('Importación completada.');</script>";
+    }
 }
 
 // Paginación
