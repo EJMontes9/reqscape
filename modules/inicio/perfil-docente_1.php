@@ -406,7 +406,7 @@ $con->close();
             const checkboxes = document.querySelectorAll('input[name="requirements[]"]');
             const generateButton = document.querySelector('button[name="generate_code"]');
 
-            // Cargar los requerimientos seleccionados desde localStorage
+            // Load selected requirements from localStorage
             const selectedRequirements = new Set(JSON.parse(localStorage.getItem('selectedRequirements') || '[]'));
 
             checkboxes.forEach(checkbox => {
@@ -433,6 +433,11 @@ $con->close();
                     input.value = id;
                     form.appendChild(input);
                 });
+            });
+
+            // Clear selected requirements from localStorage when navigating away from the page
+            window.addEventListener('beforeunload', function () {
+                localStorage.removeItem('selectedRequirements');
             });
         });
 
