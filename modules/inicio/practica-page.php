@@ -80,6 +80,8 @@ $result_requerimiento = mysqli_query($con, $sql_requerimiento);
 
 if ($result_requerimiento && mysqli_num_rows($result_requerimiento) > 0) {
     $requerimiento = mysqli_fetch_assoc($result_requerimiento);
+    $is_ambiguous = $requerimiento['is_ambiguous'] ? 'true' : 'false';
+    echo "<script>isAmbiguous = $is_ambiguous;</script>";
 } else {
     echo "No se encontraron requerimientos.";
     exit();
@@ -579,10 +581,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 document.getElementById("texto-req").innerHTML = `<span class="txt">${newRequirement}</span>`;
                 isAmbiguous = newIsAmbiguous;
                 closeModal();
+
+                // Log the correct answer to the console
+                logCorrectAnswer();
             }
         };
         xhr.send();
     }
+
+    function logCorrectAnswer() {
+        console.log("Correct answer (isAmbiguous):", isAmbiguous);
+    }
+
+    window.onload = function () {
+        logCorrectAnswer();
+    };
 
     function resetGame() {
         score = 0;
