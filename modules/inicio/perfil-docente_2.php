@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (in_array($fileExtension, ['xls', 'xlsx'])) {
             importExcel($fileTmpName, $con);
         } else {
-            echo "Formato de archivo no soportado.";
+            echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> Formato de archivo no soportado.</div>";
         }
     } elseif (isset($_POST['generate_code'])) {
         // Código para generar un código de sala
@@ -247,9 +247,10 @@ function importCSV($fileTmpName, $con)
     fclose($file);
 
     if (!empty($errors)) {
-        echo "<script>alert('" . implode("\\n", $errors) . "');</script>";
+        $uniqueErrors = array_unique($errors);
+        echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . implode("<br>", $uniqueErrors) . "</div>";
     } else {
-        echo "<script>alert('Importación completada.');</script>";
+        echo "<div class='alert alert-success' role='alert'><span class='font-medium'>Info alert!</span> Importación completada.</div>";
     }
 }
 
@@ -301,9 +302,10 @@ function importExcel($fileTmpName, $con)
     }
 
     if (!empty($errors)) {
-        echo "<script>alert('" . implode("\\n", $errors) . "');</script>";
+        $uniqueErrors = array_unique($errors);
+        echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Danger alert!</span> " . implode("<br>", $uniqueErrors) . "</div>";
     } else {
-        echo "<script>alert('Importación completada.');</script>";
+        echo "<div class='alert alert-success' role='alert'><span class='font-medium'>Info alert!</span> Importación completada.</div>";
     }
 }
 
@@ -469,8 +471,44 @@ $total_pages = ceil($total_results / $limit);
         #botongene {
             margin-bottom: 1%;
         }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            border-radius: 0.375rem;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .alert-danger {
+            color: #b91c1c;
+            background-color: #fef2f2;
+        }
+
+        .alert-success {
+            color: #065f46;
+            background-color: #d1fae5;
+        }
+
+        .alert .font-medium {
+            font-weight: 500;
+        }
     </style>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alertBox = document.querySelector('.alert');
+            if (alertBox) {
+                alertBox.style.display = 'block';
+                setTimeout(function () {
+                    alertBox.style.display = 'none';
+                }, 3000);
+            }
+        });
+
         function validateForm() {
             var name = document.forms["requirementForm"]["name"].value;
             var palabras = document.forms["requirementForm"]["palabras"].value;
