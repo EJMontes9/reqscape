@@ -123,38 +123,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>alert('" . $translations['insert_error'] . $stmt->error . "');</script>";
         }
         $stmt->close();
-    } elseif (isset($_POST['delete'])) {
-        // Código para eliminar un requerimiento
+    } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
         $id = $_POST['id'];
 
-        // Primero, elimina las filas dependientes en la tabla room_requirements
+        // First, delete dependent rows in the room_requirements table
         $sql = "DELETE FROM room_requirements WHERE requirement_id = ?";
         $stmt = $con->prepare($sql);
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
-            // Luego elimina las filas dependientes en la tabla palabras
+            // Then delete dependent rows in the palabras table
             $sql = "DELETE FROM palabras WHERE requirements_id = ?";
             $stmt = $con->prepare($sql);
             $stmt->bind_param("i", $id);
 
             if ($stmt->execute()) {
-                // Ahora elimina la fila en requirements_2
+                // Now delete the row in requirements_2
                 $sql = "DELETE FROM requirements_2 WHERE id = ?";
                 $stmt = $con->prepare($sql);
                 $stmt->bind_param("i", $id);
                 if ($stmt->execute()) {
-                    echo "<script>alert('" . $translations['delete_success'] . "');</script>";
+                    echo "<div class='alert alert-success' role='alert'><span class='font-medium'>Success:</span> " . $translations['delete_success'] . "</div>";
                 } else {
-                    echo "<script>alert('" . $translations['delete_error'] . $stmt->error . "');</script>";
+                    echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Error:</span> " . $translations['delete_error'] . $stmt->error . "</div>";
                 }
             } else {
-                echo "<script>alert('" . $translations['delete_error'] . $stmt->error . "');</script>";
+                echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Error:</span> " . $translations['delete_error'] . $stmt->error . "</div>";
             }
         } else {
-            echo "<script>alert('" . $translations['delete_error'] . $stmt->error . "');</script>";
+            echo "<div class='alert alert-danger' role='alert'><span class='font-medium'>Error:</span> " . $translations['delete_error'] . $stmt->error . "</div>";
         }
         $stmt->close();
+        exit();
     } elseif (isset($_POST['update'])) {
         // Código para actualizar un requerimiento
         $id = $_POST['id'];
@@ -509,6 +509,36 @@ $total_pages = ceil($total_results / $limit);
             }
         });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+                    const id = this.dataset.id;
+                    if (confirm('<?php echo $translations['confirm_delete']; ?>')) {
+                        fetch('perfil-docente_2.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: `delete=1&id=${id}`
+                        })
+                            .then(response => response.text())
+                            .then(data => {
+                                const alertContainer = document.getElementById('alertContainer');
+                                if (alertContainer) {
+                                    alertContainer.innerHTML = data;
+                                } else {
+                                    console.error('Error: Element with id "alertContainer" not found.');
+                                }
+                                console.log(data); // Show the result in the console
+                                this.closest('tr').remove(); // Remove the row from the DOM
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+                });
+            });
+        });
+
         function validateForm() {
             var name = document.forms["requirementForm"]["name"].value;
             var palabras = document.forms["requirementForm"]["palabras"].value;
@@ -641,6 +671,7 @@ $total_pages = ceil($total_results / $limit);
     </script>
 </head>
 <body>
+<div id="alertContainer"></div>
 <div class="fondo">
     <div class="columna-1">
         <div class="fila1-cl1">
@@ -809,10 +840,11 @@ $total_pages = ceil($total_results / $limit);
                                                           onsubmit="return confirm('<?php echo $translations['confirm_delete']; ?>');"
                                                           style="display:inline;">
                                                         <input type="hidden" name="id"
-                                                               value="<?php echo $requirement['id']; ?>">
+                                                               value="<?php echo $requirement['id']; ?>"/>
                                                         <button type="submit" name="delete"
-                                                                class="btn btn-danger btn-sm"><i
-                                                                    class="fas fa-trash"></i> <?php echo $translations['delete']; ?>
+                                                                class="btn btn-danger btn-sm delete-button"
+                                                                data-id="<?php echo $requirement['id']; ?>">
+                                                            <i class="fas fa-trash"></i> <?php echo $translations['delete']; ?>
                                                         </button>
                                                     </form>
                                                 </td>
